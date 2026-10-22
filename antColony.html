@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!-- Ant colony optimization. Ants choose routes using pheromone strength and distance; evaporation and deposits guide later iterations. -->
+<html lang="en">
+<head>
+    <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Explore ant colony optimization with moving ants, pheromone trails, and shorter paths.">
+    <title>Ant Colony Path Algorithm — Louis du Beux</title>
+    <link rel="stylesheet" href="/Lib/Bootstrap4.0/css/bootstrap.min.css"><link rel="stylesheet" href="/NavBar.css"><link rel="stylesheet" href="./antColony.css"><link rel="stylesheet" href="/Theme.css?v=2">
+    <script src="/NavBar.js" defer></script>
+    <link rel="canonical" href="https://louisdubeux.com/Projects/antColony/antColony.html">
+</head>
+<body>
+    <!-- Shared navigation is populated by /NavBar.js. -->
+    <div id="nav-placeholder"></div>
+    <main class="container-fluid py-4">
+        <header><p class="section-label">Swarm intelligence</p><h1>Ant Colony Path Algorithm</h1><p class="text-muted">Ants explore routes that visit every point and return home. Shorter trips leave stronger pheromone trails, helping the colony discover better paths.</p></header>
+        <div class="colony-layout">
+            <aside class="colony-controls">
+                <form id="colony-form">
+                    <label for="points">Points <output id="points-value">25</output></label><input id="points" type="range" min="5" max="60" value="25">
+                    <label for="ants">Ants <output id="ants-value">40</output></label><input id="ants" type="range" min="5" max="100" value="40">
+                    <label for="evaporation">Evaporation <output id="evaporation-value">25%</output></label><input id="evaporation" type="range" min="1" max="90" value="25">
+                    <label for="alpha">Pheromone influence <output id="alpha-value">1</output></label><input id="alpha" type="range" min="0" max="4" step=".5" value="1">
+                    <label for="beta">Distance influence <output id="beta-value">3</output></label><input id="beta" type="range" min="0" max="6" step=".5" value="3">
+                    <label for="speed">Iterations per second <output id="speed-value">2</output></label><input id="speed" type="range" min="1" max="10" value="2">
+                    <div class="colony-actions"><button id="play" class="btn btn-primary" type="button">Start</button><button id="step" class="btn btn-outline-light" type="button">Step</button><button class="btn btn-outline-light" type="submit">New map</button><button id="reset" class="btn btn-outline-light" type="button">Reset trails</button></div>
+                </form>
+                <dl><dt>Iteration</dt><dd id="iteration">0</dd><dt>Best distance</dt><dd id="distance">—</dd><dt>Improvement</dt><dd id="improvement">—</dd></dl>
+                <p id="colony-status" role="status" aria-live="polite">Ready.</p>
+                <h2>Reading the map</h2><p class="text-muted small">Blue lines show pheromones: brighter means stronger. The teal line is the best route found. Gold dots are ants moving along their current tours.</p>
+                <p class="text-muted small">Point count applies with New map. Other settings update live. This probabilistic search finds good routes without guaranteeing the shortest possible route.</p>
+            </aside>
+            <section class="colony-view" aria-label="Ant colony visualization"><canvas id="colony-map" role="img" aria-label="Ant colony paths and pheromone trails"></canvas></section>
+        </div>
+    </main>
+    <!-- Load the project entry module after its controls and view containers exist. -->
+    <script type="module" src="./antColony.js"></script>
+</body>
+</html>
